@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="81dp"
+    tools:showIn="@layout/app_bar_vehicle_detail">
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="344dp"
+        android:layout_height="167dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Plate Number"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:text=":"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lbl_vhc_platNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:textSize="16dp" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:text="GPS Transponder ID"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:text=":"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lbl_vhc_gpsId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:textSize="16dp" />
+
+        </TableRow>
+
+        <TableRow android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Status"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:text=":"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/lbl_vhc_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="3"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="sans-serif"
+                android:textSize="16dp" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/btn_vhc_approve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="0dp"
+        android:background="@android:color/holo_green_light"
+        android:text="Approve"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_vhc_reject"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vhc_reject"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_vhc_reject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_red_dark"
+        android:text="Reject"
+        app:layout_constraintEnd_toStartOf="@+id/btn_vhc_back"
+        app:layout_constraintStart_toEndOf="@+id/btn_vhc_approve"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <Button
+        android:id="@+id/btn_vhc_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btn_vhc_reject"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_vhc_reject" />
+
+</android.support.constraint.ConstraintLayout>
