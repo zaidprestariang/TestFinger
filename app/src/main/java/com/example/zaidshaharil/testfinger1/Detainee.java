@@ -1,35 +1,47 @@
 package com.example.zaidshaharil.testfinger1;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Detainee implements Serializable {
-    private int id;
+    private String id;
     private String name;
-    private String deviceId;
+    private String deviceid;
     private String status;
+    private String picture;
+    private List<Geometry> geometry;
+    private String timestamp;
 
-    public Detainee(int id, String name, String deviceId, String status) {
+    public Detainee() { super();}
+
+    public Detainee(String id, String name, String deviceid, String status, String picture, List<Geometry> geometry, String timestamp) {
         this.id = id;
         this.name = name;
-        this.deviceId = deviceId;
+        this.deviceid = deviceid;
         this.status = status;
+        this.picture = picture;
+        this.geometry = geometry;
+        this.timestamp = timestamp;
     }
 
     @Override
     public String toString() {
         return "Detainee{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", deviceId='" + deviceId + '\'' +
+                ", deviceid='" + deviceid + '\'' +
                 ", status='" + status + '\'' +
+                ", picture='" + picture + '\'' +
+                ", geometry=" + geometry +
+                ", timestamp='" + timestamp + '\'' +
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -41,12 +53,12 @@ public class Detainee implements Serializable {
         this.name = name;
     }
 
-    public String getDeviceId() {
-        return deviceId;
+    public String getDeviceid() {
+        return deviceid;
     }
 
-    public void setDeviceId(String deviceId) {
-        this.deviceId = deviceId;
+    public void setDeviceid(String deviceid) {
+        this.deviceid = deviceid;
     }
 
     public String getStatus() {
@@ -55,5 +67,29 @@ public class Detainee implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public List<Geometry> getGeometry() {
+        return geometry;
+    }
+
+    public void setGeometry(List<Geometry> geometry) {
+        this.geometry = geometry;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }

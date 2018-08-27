@@ -41,10 +41,10 @@ public class DetaineeListAdapter extends BaseAdapter {
         TextView tvStatus = v.findViewById(R.id.tblDetainee_status);
 
         tvName.setText(mDetaineeList.get(i).getName());
-        tvDeviceId.setText(mDetaineeList.get(i).getDeviceId());
+        tvDeviceId.setText(mDetaineeList.get(i).getDeviceid());
         tvStatus.setText(mDetaineeList.get(i).getStatus());
 
-        v.getTag(mDetaineeList.get(i).getId());
+        v.setTag(mDetaineeList.get(i).getId());
         return v;
     }
 

@@ -10,14 +10,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class DetaineeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,27 +56,55 @@ public class DetaineeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ivDetainee = findViewById(R.id.listview_detainee);
-        mDetaineeList = new ArrayList<>();
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://prestariang.akaunsaya.com:5000/detainees"; // "http://219.92.29.26:5000/vehicles";
 
-        mDetaineeList.add(new Detainee(1, "Samad bin Ishak", "FNE32223", "Approved"));
-        mDetaineeList.add(new Detainee(2, "Tarik bin Razali", "VBR83729", "Pending"));
-        mDetaineeList.add(new Detainee(3, "Muhammad Nabil bin Sulaiman", "NIR43983", "Rejected"));
-        mDetaineeList.add(new Detainee(4, "Ahmad Tarmizi bin Yusuf", "KFR43822", "Approved"));
-        mDetaineeList.add(new Detainee(5, "Norhaliza binti Idris", "GWJ23254", "Pending"));
-        mDetaineeList.add(new Detainee(6, "Yap Wai Loon", "FHR214343", "Pending"));
-        mDetaineeList.add(new Detainee(7, "Suriati binti Banos", "PUN22394", "Pending"));
-        mDetaineeList.add(new Detainee(8, "Muhammad Amin bin Muhammad Razak", "QWW32234", "Pending"));
-
-        detaineeListAdapter = new DetaineeListAdapter(getApplicationContext(), mDetaineeList);
-        ivDetainee.setAdapter(detaineeListAdapter);
-
-        ivDetainee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        Request request = new Request.Builder().url(url).build(); //.addHeader("Authorization", "sd").addHeader("refresh_token", "ds").url(url).build();
+        client.newCall(request).enqueue(new Callback() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent myIntent = new Intent(DetaineeActivity.this, DetaineeDetailActivity.class);
-                myIntent.putExtra("detainee", mDetaineeList.get(i));
-                DetaineeActivity.this.startActivity(myIntent);
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    final String myResponse = response.body().string();
+
+                    //Toast.makeText(getApplicationContext(), "myResponse = " + myResponse, Toast.LENGTH_LONG).show();
+                    DetaineeActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            objectMapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+                            try {
+                                mDetaineeList = new ArrayList<>();
+                                mDetaineeList = Arrays.asList(objectMapper.readValue(myResponse, Detainee[].class));
+                                //TextView textView = findViewById(R.id.lbl_dtn_title);
+                                //textView.setText(mDetaineeList.get(0).toString());
+
+                                ivDetainee = findViewById(R.id.listview_detainee);
+                                detaineeListAdapter = new DetaineeListAdapter(getApplicationContext(), mDetaineeList);
+                                ivDetainee.setAdapter(detaineeListAdapter);
+
+                                ivDetainee.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                        Intent myIntent = new Intent(DetaineeActivity.this, DetaineeDetailActivity.class);
+                                        myIntent.putExtra("detainee", mDetaineeList.get(i));
+                                        //TextView textView = findViewById(R.id.lbl_dtn_title);
+                                        //textView.setText(mDetaineeList.get(i).getGeometry().get(0).getX().toString());
+                                        DetaineeActivity.this.startActivity(myIntent);
+                                    }
+                                });
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(getApplicationContext(), "Error getting data. Please contact administrator.", Toast.LENGTH_LONG).show();
+                }
             }
         });
 

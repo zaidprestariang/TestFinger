@@ -41,6 +41,8 @@ public class VehicleDetailActivity extends AppCompatActivity
         text_platNo.setText(vehicle.getPlateNo());
         TextView text_gpsId = findViewById(R.id.lbl_vhc_gpsId);
         text_gpsId.setText(vehicle.getDeviceid());
+        TextView text_desc = findViewById(R.id.lbl_vhc_description);
+        text_desc.setText(vehicle.getDescription());
         TextView text_status = findViewById(R.id.lbl_vhc_status);
         text_status.setText(vehicle.getStatus());
 

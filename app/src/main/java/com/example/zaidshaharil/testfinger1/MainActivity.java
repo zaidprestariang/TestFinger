@@ -58,31 +58,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         OkHttpClient client = new OkHttpClient();
-        String url = "http://219.92.29.26:5000/vehicles";
+        String url = "http://prestariang.akaunsaya.com:5000/vehicles"; // "http://219.92.29.26:5000/vehicles";
 
-        RequestBody requestBody1 = new FormBody.Builder()
-                .add("id", "5b82527fa6875e242d0513a0")
-                .add("description", "Test3")
-                .add("deviceid", "GST328233")
-                .add("plateNo", "FFV7890")
-                .add("status", "NEW")
-                .build();
-        Request request1 = new Request.Builder().url(url).post(requestBody1).build();
-        client.newCall(request1).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
-
-
-        Request request = new Request.Builder().url(url).build();
-                //.addHeader("Authorization", "sd").addHeader("refresh_token", "ds").url(url).build();
+        Request request = new Request.Builder().url(url).build(); //.addHeader("Authorization", "sd").addHeader("refresh_token", "ds").url(url).build();
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -93,7 +71,6 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call call, Response response) throws IOException {
                 if (response.isSuccessful()) {
                     final String myResponse = response.body().string();
-
                     MainActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -121,7 +98,7 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), "Error getting data. Please contact adminstrator.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Error getting data. Please contact administrator.", Toast.LENGTH_LONG).show();
                 }
             }
         });

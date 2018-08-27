@@ -21,10 +21,6 @@ public class Vehicle implements Serializable {
         this.status = status;
     }
 
-    public String getId() {
-        return id;
-    }
-
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -34,6 +30,10 @@ public class Vehicle implements Serializable {
                 ", description='" + description + '\'' +
                 ", status='" + status + '\'' +
                 '}';
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {
